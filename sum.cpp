@@ -16,6 +16,7 @@ void buildtree(vector<int> &tree, int n , int i, int j, int *arr){
 }
 
 int sizeoftree( int n){
+    // if n is power of 2 then size is 2*n else size is 2*x where is power of 2 just greater than 2*n
     int i = 0,count = 0;
     int num = n;
     while(num>0){
@@ -38,6 +39,19 @@ int sizeoftree( int n){
         n >>= 1;
     }
     return pow(2,i);
+}
+void updatetree(vector<int> &tree, int n , int i, int j, int ind, int val, int *arr){
+    if(i == j){
+        arr[ind] = val;
+        tree[n] = val; 
+    }
+    int mid = i+ (j-i)/2;
+    if( ind >= i && ind <=mid){
+        updatetree(tree,2*n,i,mid,ind,val,arr);
+    }
+    else{
+        updatetree(tree,2*n+1,mid+1,j,ind,val,arr);
+    }
 }
 
 int getsum(vector<int> &tree, int n, int i,int j,int l,int r){
